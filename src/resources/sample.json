@@ -1,0 +1,116 @@
+{
+	"bills": 
+	[
+		{
+            "id": 1,
+			"name": "An Act to Construct the Great Wall of Malodivo",
+			"category": "Defense",
+			"amount": 200000
+		},
+		{
+            "id": 2,
+			"name": "An Act to Construct Shelters for the Homeless",
+			"category": "Welfare",
+			"amount": 40000
+		},
+		{
+            "id": 3,
+			"name": "An Act to Fund the Development of Longer-Lasting Paper",
+			"category": "Science",
+			"amount": 14000
+		},
+		{
+            "id": 4,
+			"name": "An Act to Increase Retirement Benefits for Veterans",
+			"category": "Welfare",
+			"amount": 90000
+		}
+	],
+	"districts": 
+	[
+		{
+			"name": "Palolene",
+			"availableFunds": 200000,
+			"categoryFunding": [
+				{
+					"category": "Defense",
+                    "defaultAmount": 1000,
+                    "maxAmount": 3000
+				},
+				{
+					"category": "Welfare",
+                    "defaultAmount": 3000,
+                    "maxAmount": 3199
+				},
+				{
+					"category": "Science",
+                    "defaultAmount": 5000,
+                    "maxAmount": 15000
+				}
+			],
+			"billFunding": [
+				{
+					"billId": 4,
+					"amount": 500
+				},
+				{
+					"billId": 3,
+					"amount": 7500
+				}
+			]
+		},
+		{
+			"name": "Southern Palolene",
+			"availableFunds": 150000,
+			"categoryFunding": [
+				{
+                    "category": "Defense",
+                    "defaultAmount": 500,
+                    "maxAmount": 10000
+				},
+				{
+                    "category": "Welfare",
+                    "defaultAmount": 5000,
+                    "maxAmount": 10000
+				},
+				{
+                    "category": "Science",
+                    "defaultAmount": 2000,
+                    "maxAmount": 10000
+				}
+			],
+			"billFunding": []
+		},
+		{
+			"name": "Lakos",
+			"availableFunds": 400000,
+			"categoryFunding": [
+				{
+					"category": "Defense",
+                    "defaultAmount": 10000,
+                    "maxAmount": 30000
+				},
+				{
+					"category": "Welfare",
+                    "defaultAmount": 1000,
+                    "maxAmount": 3000
+				},
+				{
+					"category": "Science",
+                    "defaultAmount": 500,
+                    "maxAmount": 1000
+				}
+			],
+			"billFunding": [
+				{
+					"billId": 1,
+					"amount": 100000
+				},
+				{
+					"billId": 3,
+					"amount": 0
+				}
+			]
+		}
+	]
+}

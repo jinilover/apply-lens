@@ -1,0 +1,122 @@
+{
+	"_comment": "bills of different categories, have bill fund, has fund on non-exist bill, has fund capped by max, has 1 zero bill fund",
+	"_bills": 
+	[
+		{
+			"_id": 1,
+			"_bName": "An Act to Construct the Great Wall of Malodivo",
+			"_bCategory": "Defense",
+			"_bAmount": 200000
+		},
+		{
+            "_id": 2,
+			"_bName": "An Act to Construct Shelters for the Homeless",
+			"_bCategory": "Welfare",
+			"_bAmount": 40000
+		},
+		{
+			"_id": 3,
+			"_bName": "An Act to Fund the Development of Longer-Lasting Paper",
+			"_bCategory": "Science",
+			"_bAmount": 9000
+		},
+		{
+           	"_id": 4,
+			"_bName": "An Act to Increase Retirement Benefits for Veterans",
+			"_bCategory": "Welfare",
+			"_bAmount": 90000
+		}
+	],
+	"_districts": 
+	[
+		{
+			"_dName": "Palolene",
+			"_availableFund": 200000,
+			"_categoryFunds": [
+				{
+					"_fCategory": "Defense",
+					"_defaultAmount": 1000,
+					"_maxAmount": 3000
+				},
+				{
+					"_fCategory": "Welfare",
+					"_defaultAmount": 3000,
+					"_maxAmount": 3199
+				},
+				{
+					"_fCategory": "Science",
+					"_defaultAmount": 5000,
+					"_maxAmount": 15000
+				}
+			],
+			"_billFunds": [
+				{
+					"_billId": 4,
+					"_amount": 500
+				},
+				{
+					"_billId": 3,
+					"_amount": 7500
+				}
+			]
+		},
+		{
+			"_dName": "Southern Palolene",
+			"_availableFund": 150000,
+			"_categoryFunds": [
+				{
+					"_fCategory": "Defense",
+					"_defaultAmount": 500,
+					"_maxAmount": 10000
+				},
+				{
+					"_fCategory": "Welfare",
+					"_defaultAmount": 5000,
+					"_maxAmount": 10000
+				},
+				{
+					"_fCategory": "Science",
+					"_defaultAmount": 2000,
+					"_maxAmount": 10000
+				}
+			],
+			"_billFunds": [
+				{
+					"_billId": 101,
+					"_amount": 500000
+				}
+			]
+		},
+		{
+			"_dName": "Lakos",
+			"_availableFund": 400000,
+			"_categoryFunds": [
+				{
+					"_fCategory": "Defense",
+					"_defaultAmount": 10000,
+					"_maxAmount": 30000
+				},
+				{
+					"_fCategory": "Welfare",
+					"_defaultAmount": 1000,
+					"_maxAmount": 3000
+				},
+				{
+					"_fCategory": "Science",
+					"_defaultAmount": 500,
+					"_maxAmount": 1000
+				}
+			],
+			"_billFunds": [
+				{
+					"_billId": 1,
+					"_amount": 100000
+				},
+				{
+					"_billId": 3,
+					"_amount": 0
+				}
+			]
+		}
+	]
+}

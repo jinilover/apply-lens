@@ -1,0 +1,80 @@
+{
+	"_bills": 
+	[
+		{
+          	"_id": 2,
+			"_name": "An Act to Construct Shelters for the Homeless",
+			"_category": "Welfare",
+			"_amount": 40000
+		}
+	],
+	"_districts": 
+	[
+		{
+			"_name": "Palolene",
+			"_availableFund": 200000,
+			"_categoryFunds": [
+				{
+					"_category": "Defense",
+					"_defaultAmount": 1000,
+					"_maxAmount": 3000
+				},
+				{
+					"_category": "Welfare",
+					"_defaultAmount": 3000,
+					"_maxAmount": 3199
+				},
+				{
+					"_category": "Science",
+					"_defaultAmount": 5000,
+					"_maxAmount": 15000
+				}
+			],
+			"_billFunds": []
+		},
+		{
+			"_name": "Southern Palolene",
+			"_availableFund": 150000,
+			"_categoryFunds": [
+				{
+					"_category": "Defense",
+					"_defaultAmount": 500,
+					"_maxAmount": 10000
+				},
+				{
+					"_category": "Welfare",
+					"_defaultAmount": 5000,
+					"_maxAmount": 10000
+				},
+				{
+					"_category": "Science",
+					"_defaultAmount": 2000,
+					"_maxAmount": 10000
+				}
+			],
+			"_billFunds": []
+		},
+		{
+			"_name": "Lakos",
+			"_availableFund": 400000,
+			"_categoryFunds": [
+				{
+					"_category": "Defense",
+					"_defaultAmount": 10000,
+					"_maxAmount": 30000
+				},
+				{
+					"_category": "Welfare",
+					"_defaultAmount": 1000,
+					"_maxAmount": 3000
+				},
+				{
+					"_category": "Science",
+					"_defaultAmount": 500,
+					"_maxAmount": 1000
+				}
+			],
+			"_billFunds": []
+		}
+	]
+}
