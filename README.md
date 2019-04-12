@@ -1,5 +1,7 @@
 # apply-lens
-There are numerous articles explaining what are lenses and why they are used.  This repo illustrates some scenarios of using `Traversal` and using lens to update an existing `Map` to avoid tedious code.
+There are numerous articles explaining what are lenses and why they are used.  This repo shares my experience of using lens in the following scenarios:
+* Update an existing `Map` in simpler way
+* Using `Traversal`
 
 ## Update `Map`
 
@@ -46,17 +48,44 @@ data FinalBill = FinalBill {
 }
 ```
 
-### Requirement:
-* In `District`, if summation of `_defaultAmount` of `[CategoryFund]` is greater than `_availableFund`, all `_defaultAmount` values should be capped by `_availableFund` by proportion according to the original summation of `_defaultAmount`.
+### Problems:
+* In `District`, if summation of `_defaultAmount` of `[CategoryFund]` is greater than `_availableFund`, all `_defaultAmount` values should be capped by `_availableFund` in proportion to the summation of `_defaultAmount`.
 * A similar requirement on `_maxAmount` of `[CategoryFund]`.
 * A similar requirement on `FinalBill` if summation of `_contribute` of `[Contribution]` is greater than `_requiredFund`.
 
-### Problem:
+### Issues:
 * The code of calculating the new values are the same.
-* The new values need to be applied on the list of data structures.  A typical usage of lens.
+* The new values need to be applied on the list of data structures.  This is a typical usage of lens.
 
 ### Solution:
+Defines a sharing function that calculates the new values.
+```
+adjustList :: Int -> Lens' a Int -> [a] -> [a]
+-- Please refer to Utils.hs for the implementation
+```
 
+Build the lenses
+```
+makeLenses ''CategoryFund
+makeLenses ''District
+makeLenses ''Contribution
+makeLenses ''FinalBill
+```
+
+Now the `FinalBill` problem can be solved by using `adjustList`
+```
+b & (contributeFrom %~ adjustList _requiredFund contribute)
+-- b is b@FinalBill{..}
+-- Please refer to FundDistribution.hs for details
+```
+
+Similarly, to solve the `District` problem
+```
+d & categoryFunds %~ adjustList _availableFund maxAmount
+  & categoryFunds %~ adjustList _availableFund defaultAmount
+-- d is d@District{..}
+-- Please refer to StructureBuildup.hs for details
+```
 
 
 ## References
