@@ -53,9 +53,9 @@ data FinalBill = FinalBill {
 * A similar requirement on `_maxAmount` of `[CategoryFund]`.
 * A similar requirement on `FinalBill` if summation of `_contribute` of `[Contribution]` is greater than `_requiredFund`.
 
-### Issues:
-* The code of calculating the new values are the same.
-* The new values need to be applied on the list of data structures.  This is a typical usage of lens.
+### Challenge:
+* The logic of calculating the new values are the same.
+* The list of data structures must be updated by the new values afterwards.  This is a typical usage of lens.
 
 ### Solution:
 Defines a sharing function that calculates the new values.
@@ -64,7 +64,7 @@ adjustList :: Int -> Lens' a Int -> [a] -> [a]
 -- Please refer to Utils.hs for the implementation
 ```
 
-Build the lenses
+Build the lenses of the involved data types
 ```
 makeLenses ''CategoryFund
 makeLenses ''District
@@ -87,6 +87,16 @@ d & categoryFunds %~ adjustList _availableFund maxAmount
 -- Please refer to StructureBuildup.hs for details
 ```
 
+`adjustList` can also be used to recalculate an integer list.  Because `Lens' a Int` is actually `forall (f :: * -> *). Functor f => (Int -> f Int) -> a -> f a`.  That means `id` is `Lens' Int Int` such that something like `adjustList 100 id [1,2,3,4]` also works.
+
+## Appendix
+### About this application
+
 
 ## References
 * https://en.wikibooks.org/wiki/Haskell/Lenses_and_functional_references
+* http://hackage.haskell.org/package/lens-tutorial-1.0.3/docs/Control-Lens-Tutorial.html
+* https://mmhaskell.com/blog/2017/6/12/taking-a-close-look-at-lenses
+* https://www.youtube.com/watch?v=QZy4Yml3LTY&t=882s
+* https://github.com/data61/lets-lens
+* A cool summary of Lens, Traversal, Iso, Prism https://www.reddit.com/r/haskell/comments/9ded97/is_learning_how_to_use_the_lens_library_worth_it/
