@@ -52,9 +52,9 @@ data FinalBill = FinalBill {
 * A similar requirement on `_maxAmount` of `[CategoryFund]`.
 * A similar requirement on `FinalBill` if summation of `_contribute` of `[Contribution]` is greater than `_requiredFund`.
 
-### Issues:
-* The logic of calculating the new values are the same among all the requirement.
-* The list of data structures must be updated by the new field values.  Lens comes to rescue.
+### Challenge:
+* The logic of calculating the new values is duplicated among all the requirement.
+* The list of data structures must be updated by the new field values.  That's why Lens is used.
 
 ### Solution:
 Defines a sharing function that calculates the new values.
