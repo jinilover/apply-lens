@@ -15,7 +15,7 @@ Using lens to simpify the code
 ```
 import Control.Lens
 ix k %~ f $ m
--- "%~" is infix operator of "over"
+-- "%~" is "over" infix operator
 ```
 
 ## Update a field of an item list
@@ -57,10 +57,9 @@ data FinalBill = FinalBill {
 * The list of data structures must be updated by the new field values.  That's why Lens is used.
 
 ### Solution:
-Defines a sharing function that calculates the new values.
+Defines a sharing function that calculates the new values.  Details can be referred to https://github.com/jinilover/apply-lens/blob/master/src/lib/Parliament/Utils.hs
 ```
 adjustList :: Int -> Lens' a Int -> [a] -> [a]
--- Please refer to https://github.com/jinilover/apply-lens/blob/master/src/lib/Parliament/Utils.hs for the implementation
 ```
 
 Build the lenses of the involved data types
@@ -71,27 +70,24 @@ makeLenses ''Contribution
 makeLenses ''FinalBill
 ```
 
-Then the `FinalBill` solution can be implemented by using `adjustList`
+Then the `FinalBill` solution can be implemented by using `adjustList`.  Details can be referred to https://github.com/jinilover/apply-lens/blob/master/src/lib/Parliament/FundDistribution.hs
 ```
 b & (contributeFrom %~ adjustList _requiredFund contribute)
 -- b is b@FinalBill{..}
--- Please refer to https://github.com/jinilover/apply-lens/blob/master/src/lib/Parliament/FundDistribution.hs for details
 ```
 
-Similarly, to implement the `District` solution by re-using `adjustList`
+Similarly, implement the `District` solution by using `adjustList`.  Details can be referred to https://github.com/jinilover/apply-lens/blob/master/src/lib/Parliament/StructureBuildup.hs
 ```
 d & categoryFunds %~ adjustList _availableFund maxAmount
   & categoryFunds %~ adjustList _availableFund defaultAmount
 -- d is d@District{..}
--- Please refer to https://github.com/jinilover/apply-lens/blob/master/src/lib/Parliament/StructureBuildup.hs for details
 ```
 
-`adjustList` can also be used to recalculate an integer list.  
-Because `Lens' a Int` is type alias of 
+`adjustList` can also be used to recalculate an integer list.  Because `Lens' a Int` is type alias of 
 ```
 forall (f :: * -> *). Functor f => (Int -> f Int) -> a -> f a
 ```
-Therefore `id` is `Lens' Int Int` such that something like `adjustList 100 id [1,2,3,4]` also works.
+Therefore `id` is `Lens' Int Int` such that `adjustList 100 id [1,2,3,4]` also works.
 
 ## Appendix
 ### Build and run the application
