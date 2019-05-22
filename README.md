@@ -60,7 +60,7 @@ data FinalBill = FinalBill {
 Defines a sharing function that calculates the new values.
 ```
 adjustList :: Int -> Lens' a Int -> [a] -> [a]
--- Please refer to Utils.hs for the implementation
+-- Please refer to https://github.com/jinilover/apply-lens/blob/master/src/lib/Parliament/Utils.hs for the implementation
 ```
 
 Build the lenses of the involved data types
@@ -75,7 +75,7 @@ Then the `FinalBill` solution can be implemented by using `adjustList`
 ```
 b & (contributeFrom %~ adjustList _requiredFund contribute)
 -- b is b@FinalBill{..}
--- Please refer to FundDistribution.hs for details
+-- Please refer to https://github.com/jinilover/apply-lens/blob/master/src/lib/Parliament/FundDistribution.hs for details
 ```
 
 Similarly, to implement the `District` solution by re-using `adjustList`
@@ -83,7 +83,7 @@ Similarly, to implement the `District` solution by re-using `adjustList`
 d & categoryFunds %~ adjustList _availableFund maxAmount
   & categoryFunds %~ adjustList _availableFund defaultAmount
 -- d is d@District{..}
--- Please refer to StructureBuildup.hs for details
+-- Please refer to https://github.com/jinilover/apply-lens/blob/master/src/lib/Parliament/StructureBuildup.hs for details
 ```
 
 `adjustList` can also be used to recalculate an integer list.  
