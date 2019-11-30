@@ -87,18 +87,25 @@ d & categoryFunds %~ adjustList _availableFund maxAmount
 ```
 forall (f :: * -> *). Functor f => (Int -> f Int) -> a -> f a
 ```
-Therefore `id` is `Lens' Int Int` such that `adjustList 100 id [1,2,3,4]` also works.
+Therefore `identity` is `Lens' Int Int` such that `adjustList 100 identity [1,2,3,4]` also works.
 
 ## Appendix
 ### Build and run the application
-To run the application, type 
+Enter the nix shell by `nix-shell`
+
+To build the application
 ```
-stack build
+cabal build
 ```
 
-To execute the application, type
+To execute the application
 ```
-stack exec apply-lens-exe test/resources/parliament8.json report.json
+cabal run apply-lens -- test/resources/parliament8.json report.json
+```
+
+To run the test-suite
+```
+cabal new-test tests
 ```
 
 ## References

@@ -1,8 +1,7 @@
 {-# LANGUAGE DisambiguateRecordFields #-}
 module Main where
 
-import Protolude 
-import Prelude (String)
+import Data.String (String)
 import Data.Aeson.Encode.Pretty
 import qualified Data.ByteString.Lazy as B
 
@@ -15,7 +14,7 @@ import Parliament.Utils
 main :: IO ()
 main = do
     (inFile : outFile : _) <- getArgs
-    dataObj <- readJson inFile
+    dataObj <- runExceptT $ readJson inFile
     proc outFile dataObj
 
 proc :: String -> Either String Gazette -> IO ()

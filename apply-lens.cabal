@@ -1,0 +1,71 @@
+cabal-version:  2.2
+name:           apply-lens
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/apply-lens#readme>
+homepage:       https://github.com/githubuser/ #readme
+bug-reports:    https://github.com/githubuser/ /issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2019 Author name here
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+common lang
+  default-extensions: OverloadedStrings
+                    , RecordWildCards
+
+common deps
+  build-depends:        aeson
+                      , aeson-pretty
+                      , base-noprelude
+                      , bytestring
+                      , containers
+                      , lens
+                      , mtl
+                      , protolude
+
+library
+  import:               lang, deps
+  exposed-modules:      Prelude
+                      , Parliament.CacheDataTypes
+                      , Parliament.Common
+                      , Parliament.DataTypes
+                      , Parliament.FundDistribution
+                      , Parliament.StructureBuildup
+                      , Parliament.Utils
+  other-modules:        Paths_apply_lens
+  hs-source-dirs:       src/lib
+  default-language:     Haskell2010
+
+executable apply-lens
+  import:               lang, deps
+  main-is:              Main.hs
+  other-modules:        Paths_apply_lens
+  hs-source-dirs:       app
+  ghc-options:          -threaded -rtsopts -with-rtsopts=-N -Wall -Werror -fno-warn-unused-binds -fno-warn-unused-do-bind -fno-warn-unused-imports -fno-warn-type-defaults
+  build-depends:        apply-lens
+  default-language:     Haskell2010
+
+common test-deps
+  build-depends:      HUnit
+                    , QuickCheck
+                    , hspec
+                    , checkers
+                    , apply-lens
+
+test-suite apply-lens-test
+  import:             lang, deps, test-deps
+  type:               exitcode-stdio-1.0
+  main-is:            Spec.hs
+  other-modules:      Parliament.Arbitraries
+                    , Parliament.FundDistributionSpec
+                    , Parliament.StructureBuildupSpec
+                    , Parliament.TestUtils
+                    , Parliament.UtilsSpec
+                    , Paths_apply_lens
+  hs-source-dirs:     test
+  default-extensions: OverloadedStrings , RecordWildCards , NoImplicitPrelude
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  default-language: Haskell2010

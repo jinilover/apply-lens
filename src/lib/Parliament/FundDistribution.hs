@@ -1,10 +1,9 @@
 {-# LANGUAGE GADTs #-}
 module Parliament.FundDistribution where
 
-import Protolude
 import Data.List (partition)
 import Control.Lens
-import qualified Prelude as P (String, id)
+import Data.String (String)
 import qualified Data.Map as M
 
 import Parliament.DataTypes
@@ -53,7 +52,7 @@ approveFund (catMap, billMap) = join . map forEachCategory . M.elems $ catMap
             -- ignore those bills already covered by this district's bill specific funding before
             let (ignoredBs, targetBs) = partition (any ((dName ==) . fst) . _contributions) bills 
                 reqdFunds = map _reqdFund targetBs
-                approvals = adjustList dFund P.id reqdFunds 
+                approvals = adjustList dFund identity reqdFunds 
                 updatedBs = [b & contributions %~ ((dName, fund):) | (b,fund) <- zip targetBs approvals] in
             (ignoredBs ++ updatedBs, fbs)
           ) get

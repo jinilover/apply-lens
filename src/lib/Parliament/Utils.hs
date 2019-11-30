@@ -1,16 +1,19 @@
 {-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE FlexibleContexts #-}
 
 module Parliament.Utils where
 
-import Protolude
-import Prelude (String)
+import Control.Monad.Except (liftEither)
+import Data.String (String)
 import Data.Aeson
 import Control.Lens
 
 import qualified Data.ByteString.Lazy as B
 
-readJson :: (FromJSON a) => String -> IO (Either String a)
-readJson file = eitherDecode <$> B.readFile file
+readJson
+  :: (FromJSON a, MonadBSReader m, MonadError String m)
+  => String -> m a
+readJson = liftEither . eitherDecode <=< readByteString 
 
 -- |
 -- scale the given amt from oldBase to newBase
@@ -29,3 +32,13 @@ adjustList newBase l xs@(hd : tl) =
     let newTail = tl & each.l %~ recalculate oldSum newBase
         newHead = hd & l .~ (newBase - sumOf (each.l) newTail) in
     newHead : newTail
+
+-- refer to https://chrispenner.ca/posts/monadio-considered-harmful
+class Monad m => MonadBSReader m where
+  readByteString :: FilePath -> m B.ByteString
+
+instance MonadBSReader IO where
+  readByteString = B.readFile
+
+instance MonadBSReader m => MonadBSReader (ExceptT e m) where
+  readByteString = lift . readByteString

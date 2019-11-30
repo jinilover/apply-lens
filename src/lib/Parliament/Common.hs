@@ -1,7 +1,6 @@
 module Parliament.Common where
 
-import Protolude
-import Prelude (String)
+import Data.String (String)
 
 type BillId = Int
 

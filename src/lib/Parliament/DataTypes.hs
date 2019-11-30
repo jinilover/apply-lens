@@ -4,8 +4,7 @@
 
 module Parliament.DataTypes where
 
-import Protolude
-import Prelude (String)
+import Data.String (String)
 import Data.Aeson
 import GHC.Generics
 import Control.Lens

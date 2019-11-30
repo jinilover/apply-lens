@@ -4,10 +4,8 @@
 
 module Parliament.StructureBuildup where
 
-import Protolude
 import Control.Lens
 import qualified Data.Map as M
-import qualified Prelude as P (id)
 
 import Parliament.Utils
 import Parliament.DataTypes
@@ -113,7 +111,7 @@ groupFunds (Gazette bs ds) =
               xs = defaultAmt : billFunds
               -- cap the funds if they are over max
               (defaultAmt' : billFunds') = 
-                if total > maxAmt then adjustList maxAmt P.id xs else xs
+                if total > maxAmt then adjustList maxAmt identity xs else xs
               billMap' = foldl (\billMap ((bId, _), amt) ->
                            ix bId %~ (funds %~ ((dName, amt):)) $ billMap -- https://hackage.haskell.org/package/lens-4.17/docs/Data-Map-Lens.html
                          ) billMap $ zip pairs billFunds' in

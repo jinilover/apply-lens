@@ -2,8 +2,7 @@
            , TemplateHaskell #-}
 module Parliament.CacheDataTypes where
 
-import Protolude
-import Prelude (String)
+import Data.String (String)
 import Control.Lens
 
 import Parliament.Common
