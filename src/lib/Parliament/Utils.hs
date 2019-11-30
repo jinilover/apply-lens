@@ -8,7 +8,7 @@ import Data.String (String)
 import Data.Aeson
 import Control.Lens
 
-import qualified Data.ByteString.Lazy as B
+import Parliament.Common
 
 readJson
   :: (FromJSON a, MonadBSReader m, MonadError String m)
@@ -32,13 +32,3 @@ adjustList newBase l xs@(hd : tl) =
     let newTail = tl & each.l %~ recalculate oldSum newBase
         newHead = hd & l .~ (newBase - sumOf (each.l) newTail) in
     newHead : newTail
-
--- refer to https://chrispenner.ca/posts/monadio-considered-harmful
-class Monad m => MonadBSReader m where
-  readByteString :: FilePath -> m B.ByteString
-
-instance MonadBSReader IO where
-  readByteString = B.readFile
-
-instance MonadBSReader m => MonadBSReader (ExceptT e m) where
-  readByteString = lift . readByteString
