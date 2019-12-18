@@ -1,9 +1,6 @@
 module Parliament.FundDistributionSpec 
   (specs) where
 
-import Protolude
-
-import Test.QuickCheck
 import Test.Hspec
 
 import Parliament.TestUtils
@@ -17,15 +14,15 @@ approveFundSpec :: Spec
 approveFundSpec = 
   describe "FundDistributionSpec approveFundSpec" $ do
     it "parliament3.json, has 1 zero bill fund" $
-      readJson (resrcFolder ++ "parliament3.json") >>= check3
+      runExceptT (readJson $ resrcFolder ++ "parliament3.json")  >>= check3
     it "parliament5.json, similar to parliament3.json, but Lakos will fund the paper bill via welfare fund" $
-      readJson (resrcFolder ++ "parliament5.json") >>= check5
+      runExceptT (readJson $ resrcFolder ++ "parliament5.json")  >>= check5
     it "parliament6.json, similar to parliament3.json, but 1 more welfare bill fund is added to Palelone" $
-      readJson (resrcFolder ++ "parliament6.json") >>= check6
+      runExceptT (readJson $ resrcFolder ++ "parliament6.json") >>= check6
     it "parliament7.json, similar to parliament3.json, but the paper bill can be covered by Palelone's bill fund only" $
-      readJson (resrcFolder ++ "parliament7.json") >>= check7
+      runExceptT (readJson $ resrcFolder ++ "parliament7.json")  >>= check7
     it "parliament8.json, similar to parliament3.json, but the paper bill can be fully funded by different funds" $
-      readJson (resrcFolder ++ "parliament8.json") >>= check8
+      runExceptT (readJson $ resrcFolder ++ "parliament8.json")  >>= check8
 
     where check3 decoded = 
             fmap approvalFunc decoded `shouldBe` Right parliament3_fbs
@@ -146,11 +143,11 @@ districtFinanceSpec :: Spec
 districtFinanceSpec = 
   describe "FundDistributionSpec districtFinanceSpec" $ do
     it "parliament3.json, Lakos doesn't want to fund the long lasting paper bill" $
-      readJson (resrcFolder ++ "parliament3.json") >>= check3
+      runExceptT (readJson $ resrcFolder ++ "parliament3.json")  >>= check3
     it "parliament7.json, similar to the test in approveFundSpec, but 1 final bill will be marked fully funded" $
-      readJson (resrcFolder ++ "parliament7.json") >>= check7
+      runExceptT (readJson $ resrcFolder ++ "parliament7.json")  >>= check7
     it "parliament8.json, similar to the test in approveFundSpec, but it will be marked and refund the extra" $
-      readJson (resrcFolder ++ "parliament8.json") >>= check8
+      runExceptT (readJson $ resrcFolder ++ "parliament8.json")  >>= check8
 
     where check3 decoded = 
             let expDistrictFinance = [
@@ -236,6 +233,7 @@ chargeDistrictsFunc = chargeDistricts . approvalFunc
 -- Lakos doesn't want to funding the 2nd bill even it has science funding
 -- Lakos and S. Palolene welfare funding is distributed by proportion to the 2 bills
 -- Palolene welfare funding is capped by max amount
+parliament3_fbs :: [FinalBill]
 parliament3_fbs = [
     FinalBill {
       _fbName = "An Act to Construct the Great Wall of Malodivo"

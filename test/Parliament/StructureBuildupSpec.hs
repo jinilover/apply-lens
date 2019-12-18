@@ -6,7 +6,6 @@ module Parliament.StructureBuildupSpec
 import Test.QuickCheck
 import Test.Hspec
 
-import Protolude
 import Control.Lens
 import qualified Data.Map as M
 
@@ -94,13 +93,13 @@ capDistrictFundingsSpec =
 capByAvailableFundSpec :: Spec
 capByAvailableFundSpec = describe "StructureBuildupSpec capByAvailableFundSpec" $ do
     it "parliament1.json where all district category funds under available funds" $
-        readJson (resrcFolder ++ "parliament1.json") >>= expectNoCap
+        runExceptT (readJson $ resrcFolder ++ "parliament1.json")  >>= expectNoCap
     it "parliament2.json where all district category funds under available funds" $
-        readJson (resrcFolder ++ "parliament2.json") >>= expectNoCap
+        runExceptT (readJson $ resrcFolder ++ "parliament2.json")  >>= expectNoCap
     it "parliament3.json where all district category funds under available funds" $
-        readJson (resrcFolder ++ "parliament3.json") >>= expectNoCap
+        runExceptT (readJson $ resrcFolder ++ "parliament3.json")  >>= expectNoCap
     it "parliament4.json where 1st district has maxAmount exceed available fund" $
-        readJson (resrcFolder ++ "parliament4.json") >>= expectFundExceeded
+        runExceptT (readJson $ resrcFolder ++ "parliament4.json")  >>= expectFundExceeded
     
     where expectNoCap gazette = fmap capByAvailableFund gazette `shouldBe` gazette
 
@@ -119,11 +118,11 @@ capByAvailableFundSpec = describe "StructureBuildupSpec capByAvailableFundSpec" 
 groupFundsSpec :: Spec
 groupFundsSpec = describe "StructureBuildupSpec groupFundsSpec" $ do
     it "single bill, only 1 district has fund for non-exist bill, 1 has fund capped by max" $
-        readJson (resrcFolder ++ "parliament1.json") >>= check1
+        runExceptT (readJson $ resrcFolder ++ "parliament1.json") >>= check1
     it "bills of different categories, districts has no bill fund" $
-        readJson (resrcFolder ++ "parliament2.json") >>= check2
+        runExceptT (readJson $ resrcFolder ++ "parliament2.json") >>= check2
     it "bills of different categories, have bill fund, has fund on non-exist bill, has fund capped by max, has 1 zero bill fund" $
-        readJson (resrcFolder ++ "parliament3.json") >>= check3
+        runExceptT (readJson $ resrcFolder ++ "parliament3.json")  >>= check3
 
     where check1 decoded = 
             let welfareBs = [BillStatus 2 "An Act to Construct Shelters for the Homeless" 40000 []]

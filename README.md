@@ -105,7 +105,7 @@ cabal run apply-lens -- test/resources/parliament8.json report.json
 
 To run the test-suite
 ```
-cabal new-test tests
+cabal new-test test:tests
 ```
 
 ## References

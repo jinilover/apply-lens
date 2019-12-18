@@ -1,6 +1,6 @@
 module Parliament.TestUtils where
 
-import Prelude (String)
+import Data.String (String)
 
 resrcFolder :: String
 resrcFolder = "test/resources/"

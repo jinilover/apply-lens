@@ -1,7 +1,6 @@
 module Parliament.Arbitraries where
 
-import Protolude
-import Prelude (String)
+import Data.String (String)
 
 import Test.QuickCheck
 import Test.QuickCheck.Instances.List
